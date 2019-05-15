@@ -9,7 +9,7 @@ void Port_Init(uint8_t port_index, uint8_t pins_mask, uint32_t GPIO_PCTL_mask){
 				volatile unsigned long delay;
 				SYSCTL_RCGCGPIO_R |= SYSCTL_RCGCGPIO_R0;  //enable clock
 				delay = SYSCTL_RCGCGPIO_R;        		  //delay		
-				GPIO_PORTA_LOCK_R = GPIO_LOCK_KEY;   	  //unlock			  
+				GPIO_PORTA_LOCK_R = GPIO_LOCK_KEY;   	  //unlock port			  
 				GPIO_PORTA_CR_R |= pins_mask;				  //enable changes to all pins of the portA
 				GPIO_PORTA_AMSEL_R &= ~pins_mask;     		  // Disable analog function
 				GPIO_PORTA_PCTL_R &= ~GPIO_PCTL_mask;         // GPIO clear bit PCTL  
