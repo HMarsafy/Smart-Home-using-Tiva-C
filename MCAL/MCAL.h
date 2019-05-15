@@ -98,4 +98,7 @@ void DIO_WritePort(uint8_t port_index, uint8_t pins_mask, enum Dio_LevelType pin
  */
 void DIO_FlipPort(uint8_t port_index, uint8_t pins_mask);
 
+void DIO_WritePortWord(unsigned char word,uint32_t port, uint8_t mask);
+
+
 #endif
