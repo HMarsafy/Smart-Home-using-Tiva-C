@@ -1,3 +1,5 @@
+#include "potentiometer.h"
+
 uint16_t Potentiometer_read(void){
 	
 	 ADC0_PSSI_R = ADC0_PSSI_SS3;
