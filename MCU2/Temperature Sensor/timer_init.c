@@ -1,0 +1,11 @@
+void timer_init(void)
+{
+	SYSCTL_RCGCWTIMER_R |= 1;
+	WTIMER0_CTL_R = 0;
+	delayms(200);
+	WTIMER0_CFG_R = 0x04;
+	WTIMER0_TAMR_R = 0x02;
+	WTIMER0_TAILR_R = 16000000;
+	WTIMER0_CTL_R |= 0x20;
+	WTIMER0_CTL_R |= 0x01;
+}
