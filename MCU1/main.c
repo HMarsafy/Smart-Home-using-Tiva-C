@@ -8,6 +8,7 @@
 #include "Potentiometer.h"
 #include "LED.h"
 #include "temp_sensor.h"
+#include "stepper.h"
 #include <stdint.h>
 	
 int main(void){
@@ -25,17 +26,33 @@ int main(void){
 	delayms(300);
 	LED_init();
 	LCD_displayStringRowColumn(0,0, "LEDs initialized..");
-	delayms(300); 
+	delayms(300);
+	LCD_clearScreen();
+	
+	Port_Init(PORTF, 0x11, 0x000F000F);
+	Port_SetPinDirection(PORTF, 0x11, (enum Port_PinDirectionType) PORT_PIN_IN);
+	Port_SetPinPullUp(PORTF, 0x11, 1);
+	LCD_displayStringRowColumn(0,0, "Temperature = ");
 	while(1){
+
 		temperature = UART_Read();
-		LCD_intgerToString(temperature);
+		LCD_intgerToString(temperature + 5);	
 		pot_value = Potentiometer_read() / 150; //150 is to make the potentiometer reading suitable for the LED duty cylce range (0 - 100) range
 		UART_Write('A');
 		UART_Write(pot_value & 0x00FF);
 		UART_Write(pot_value & 0xFF00);
-		//If button of clockwise is clicked UART_Write('B')
-		//If button of anticlockwise is clicked UART_Write('C')
-		LED_SetDutyCycle(pot_value);
+		delayms(20);
+
+		
+		if(Is_Pressed(PORTF, 0x01))
+		{		
+			UART_Write('B');
+		}		
+		else if(Is_Pressed(PORTF, 0x10))
+		{
+			UART_Write('C');
+		}
+	
 		delayms(50);		
 	} 
 }
