@@ -1,11 +1,9 @@
-#include "tm4c123gh6pm.h"
-#include "UART.h"
-#include "stdint.h"
+#include "tm4c123GH6pm.h"
+#include "MCAL.h"
+#include <stdint.h>
 
-void UART0_WRITE(uint8_t data){
-	
-	while ((UART0_FR_R&UART_FR_TXFF)!=0);  // As LONG AS THE FIFO IS FULL -->DO NOTHING 
-	
-	UART0_DR_R = data;
-	
+
+void UART_Write(unsigned char data){
+  while((UART1_FR_R&UART_FR_TXFF) != 0);
+  UART1_DR_R = data;
 }
